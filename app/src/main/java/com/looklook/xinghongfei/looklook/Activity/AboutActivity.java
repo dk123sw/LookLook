@@ -7,6 +7,7 @@ import com.looklook.xinghongfei.looklook.R;
 
 /**
  * Created by xinghongfei on 16/8/25.
+ * @<关于>界面
  */
 public class AboutActivity extends BaseActivity {
     @Override
