@@ -10,7 +10,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 /**
- * liujingyuan
+ * @ 获取手机屏幕大小
  */
 public class DensityUtil {
 

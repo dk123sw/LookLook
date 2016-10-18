@@ -61,24 +61,28 @@ import butterknife.OnClick;
 public class ZhihuDescribeActivity extends BaseActivity implements IZhihuStory {
     private static final float SCRIM_ADJUSTMENT = 0.075f;
 
+//    知乎页面那张4:3的大图
     @InjectView(R.id.shot)
     ParallaxScrimageView mShot;
     @InjectView(R.id.toolbar)
     Toolbar mToolbar;
+//    知乎的内容WebView
     @InjectView(R.id.wv_zhihu)
     WebView wvZhihu;
+//    滚动
     @InjectView(R.id.nest)
     NestedScrollView mNest;
+//    分割内容
     @InjectView(R.id.title)
     TranslateYTextView mTranslateYTextView;
+    @InjectView(R.id.draggable_frame)
+    ElasticDragDismissFrameLayout mDraggableFrame;
 
     boolean isEmpty;
     String mBody;
     String[] scc;
-    String mImageUrl;
 
-    @InjectView(R.id.draggable_frame)
-    ElasticDragDismissFrameLayout mDraggableFrame;
+    String mImageUrl;
 
     int[] mDeviceInfo;
     int width;

@@ -7,7 +7,8 @@ import com.looklook.xinghongfei.looklook.R;
 
 /**
  * Created by xinghongfei on 16/8/25.
- * @<关于>界面
+ * @ <关于>界面
+ * 此界面的显示效果由其主题设置所决定
  */
 public class AboutActivity extends BaseActivity {
     @Override

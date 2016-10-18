@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
     DrawerLayout drawer;
     int nevigationId;
 
-    SimpleArrayMap<Integer, String> mTitleArryMap = new SimpleArrayMap<>();
+    SimpleArrayMap<Integer, String> mTitleArrayMap = new SimpleArrayMap<>();
 
     int mainColor;
     long exitTime = 0;
@@ -73,9 +73,14 @@ public class MainActivity extends BaseActivity {
 
 //        setStatusColor();
 
+//      没有发现任何作用....
         drawer.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+
+        /**
+         * 选择Fragment
+         */
 
         if (savedInstanceState == null) {
             nevigationId = SharePreferenceUtil.getNevigationItem(this);
@@ -89,7 +94,7 @@ public class MainActivity extends BaseActivity {
                 currentMenuItem.setChecked(true);
                 // TODO: 16/8/17 add a fragment and set toolbar title
                 Fragment fragment = getFragmentById(currentMenuItem.getItemId());
-                String title = mTitleArryMap.get((Integer) currentMenuItem.getItemId());
+                String title = mTitleArrayMap.get((Integer) currentMenuItem.getItemId());
                 if (fragment != null) {
                     switchFragment(fragment, title);
                 }
@@ -97,7 +102,7 @@ public class MainActivity extends BaseActivity {
         } else {
             if (currentMenuItem!=null){
                 Fragment fragment = getFragmentById(currentMenuItem.getItemId());
-                String title = mTitleArryMap.get((Integer) currentMenuItem.getItemId());
+                String title = mTitleArrayMap.get((Integer) currentMenuItem.getItemId());
                 if (fragment != null) {
                     switchFragment(fragment, title);
                 }
@@ -106,10 +111,7 @@ public class MainActivity extends BaseActivity {
                 currentMenuItem=navView.getMenu().findItem(R.id.zhihuitem);
 
             }
-
-
         }
-
 
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -121,15 +123,19 @@ public class MainActivity extends BaseActivity {
                     SharePreferenceUtil.putNevigationItem(MainActivity.this, id);
                     currentMenuItem = item;
                     currentMenuItem.setChecked(true);
-                    switchFragment(getFragmentById(currentMenuItem.getItemId()),mTitleArryMap.get(currentMenuItem.getItemId()));
+                    switchFragment(getFragmentById(currentMenuItem.getItemId()),
+                            mTitleArrayMap.get(currentMenuItem.getItemId()));
                 }
                 drawer.closeDrawer(GravityCompat.END, true);
                 return true;
             }
         });
 
+    /**
+    *  onApplyWindowInsets这个方法用于自定义 fitsSystemWindows，
+     * 用于调整状态栏,导航栏与自定义的控件的关系
+     */
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
         drawer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override
             public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
@@ -167,7 +173,7 @@ public class MainActivity extends BaseActivity {
         }
 
 
-
+//      设置导航栏文字,icon的颜色
         int[][] state = new int[][]{
                 new int[]{-android.R.attr.state_checked}, // unchecked
                 new int[]{android.R.attr.state_checked}  // pressed
@@ -209,10 +215,11 @@ public class MainActivity extends BaseActivity {
         return fragment;
     }
 
+//    key为菜单子项 value为String字符
     private void addfragmentsAndTitle() {
-        mTitleArryMap.put(R.id.zhihuitem, getResources().getString(R.string.zhihu));
-        mTitleArryMap.put(R.id.topnewsitem, getResources().getString(R.string.topnews));
-        mTitleArryMap.put(R.id.meiziitem, getResources().getString(R.string.meizi));
+        mTitleArrayMap.put(R.id.zhihuitem, getResources().getString(R.string.zhihu));
+        mTitleArrayMap.put(R.id.topnewsitem, getResources().getString(R.string.topnews));
+        mTitleArrayMap.put(R.id.meiziitem, getResources().getString(R.string.meizi));
 
     }
 
@@ -251,6 +258,9 @@ public class MainActivity extends BaseActivity {
 
     }
 
+/**
+ * 进入程序时ToolBar逐渐显示的动画效果
+ */
     private void animateToolbar() {
         // this is gross but toolbar doesn't expose it's children to animate them :(
         View t = toolbar.getChildAt(0);
@@ -322,6 +332,7 @@ public class MainActivity extends BaseActivity {
 
 
     //    when recycle view scroll bottom,need loading more date and show the more view.
+    //    此接口用于当RecyclerView滑到底部时加载数据并且显示更多视图
     public interface LoadingMore {
 
         void loadingStart();

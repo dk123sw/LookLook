@@ -101,7 +101,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/nev_item"/>
 
-                <!--解决nestView无法滑倒低端-->
+                <!--解决nestView无法滑倒底端-->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
